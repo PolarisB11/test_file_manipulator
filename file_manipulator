@@ -1,0 +1,66 @@
+from my_tools import game_tools as g
+
+file_path = 'C:/Users/tyty5/OneDrive/Desktop/'
+
+def word(text):
+    g.texting(text,min=0,max=0)
+def give(text_1,text_2):
+    return g.response(text_1, text_2,min=0,max=0)
+
+
+word("Welcome to the file organizer. What would you like to do?")
+
+while True:
+    objective = give("1. Make new file\n2. Read file\n3. Add to file\n" \
+    "4. Clear file\n5. Quit", "To do: ")
+
+    match objective:
+        case "1":
+            file_name = give("What is the name of your file?", "File name: ")
+            with open(f'{file_path}/{file_name}', 'w') as file:
+                word("File has been created.")
+
+        case '2':
+            file_name = give("What file would you like to see?", "File name: ")
+            try:
+                with open(f'{file_path}/{file_name}', 'r') as file:
+                    see = file.read()
+                    if see == '':
+                        word("File Empty. Please add to file to see more")
+                    else:
+                        print(see)
+                    
+            except FileNotFoundError:
+                word("File not found. Please create a new file of that name " \
+                "to continue.")
+
+        case '3':
+            file_name = give("What file would you like to add too?", 
+                             "File name: ")
+            try:
+                with open(f'{file_path}/{file_name}', 'a') as file:
+                    new = give("Please type what you would like to add", 
+                               "Add: ")
+                    file.write(f'{new}\n')
+                    word("Data entered recieved.")
+
+            except FileNotFoundError:
+                word("File not found. Please create a new file of that name " \
+                "to continue.")
+        
+        case '4':
+            file_name = give("What is the name of the file you wish to clear?",
+                             "File name: ")
+            try:
+                with open(f'{file_path}/{file_name}', 'r') as file:
+                    with open(f'{file_path}/{file_name}', 'w'):
+                        print("File has been cleared.")
+            except FileNotFoundError:
+                word("File not found. Please create a new file of that name " \
+                "to continue.")
+
+        case '5':
+            break
+
+        case _:
+            word("Im sorry but that is invalid input")
