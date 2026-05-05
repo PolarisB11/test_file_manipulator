@@ -3,10 +3,12 @@ from my_tools import game_tools as g
 file_path = 'C:/Users/tyty5/OneDrive/Desktop/'
 
 def word(text):
+""" A function that uses my personal typewriter function """
     g.texting(text,min=0,max=0)
 
 
 def give(text_1,text_2):
+"""A Function that uses my personal input typewriter function """
     return g.response(text_1, text_2,min=0,max=0)
 
 word("Welcome to the file organizer. What would you like to do?")
@@ -16,12 +18,12 @@ while True:
     "4. Clear file\n5. Quit", "To do: ")
 
     match objective:
-        case "1":
+        case "1": # Make new file
             file_name = give("What is the name of your file?", "File name: ")
             with open(f'{file_path}/{file_name}', 'w') as file:
                 word("File has been created.")
 
-        case '2':
+        case '2': # See contents of file
             file_name = give("What file would you like to see?", "File name: ")
             try:
                 with open(f'{file_path}/{file_name}', 'r') as file:
@@ -35,7 +37,7 @@ while True:
                 word("File not found. Please create a new file of that name " \
                 "to continue.")
 
-        case '3':
+        case '3': # Add contents to file
             file_name = give("What file would you like to add too?", 
                              "File name: ")
             try:
@@ -49,11 +51,13 @@ while True:
                 word("File not found. Please create a new file of that name " \
                 "to continue.")
         
-        case '4':
+        case '4': # Clear contents from file
             file_name = give("What is the name of the file you wish to clear?",
                              "File name: ")
             try:
+                # First checks to see if file exists
                 with open(f'{file_path}/{file_name}', 'r') as file:
+                    # Then writes over it
                     with open(f'{file_path}/{file_name}', 'w'):
                         print("File has been cleared.")
             except FileNotFoundError:
